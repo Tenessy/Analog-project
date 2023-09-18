@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from 'vite';
+import { compression } from 'vite-plugin-compression2';
 import analog from '@analogjs/platform';
 
 // https://vitejs.dev/config/
@@ -12,7 +13,19 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     mainFields: ['module'],
   },
-  plugins: [analog()],
+  plugins: [
+    analog({
+      ssrBuildDir: 'dist/ssr',
+      prerender: {
+        routes: ['/', '/blog'],
+        sitemap: { host: 'https://analogjs.org/' },
+      },
+    }),
+    compression(),
+  ],
+  server: {
+    host: true,
+  },
   test: {
     globals: true,
     environment: 'jsdom',

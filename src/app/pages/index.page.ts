@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { RouteMeta } from '@analogjs/router';
+
+
 
 @Component({
   selector: 'app-home',
